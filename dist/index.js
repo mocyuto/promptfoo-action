@@ -80,6 +80,7 @@ function run() {
                 baseFetchHead,
                 headFetchHead,
             ]);
+            core.info(`Changed files: ${changedFiles}`);
             // Resolve glob patterns to file paths
             const promptFiles = [];
             for (const globPattern of promptFilesGlobs) {

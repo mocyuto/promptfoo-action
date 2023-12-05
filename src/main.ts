@@ -46,6 +46,8 @@ export async function run(): Promise<void> {
       headFetchHead,
     ]);
 
+    core.info(`Changed files: ${changedFiles}`);
+
     // Resolve glob patterns to file paths
     const promptFiles: string[] = [];
     for (const globPattern of promptFilesGlobs) {
