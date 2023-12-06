@@ -19,6 +19,8 @@ inputs:
   openai-api-key:
     description: 'OpenAI API Key'
     required: false
+  no-share:
+    description: 'Do not share the prompt results'
 branding:
   icon: 'box'
   color: 'yellow'
