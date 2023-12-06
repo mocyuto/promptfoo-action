@@ -21,6 +21,9 @@ export async function run(): Promise<void> {
       required: true,
     });
     const cachePath: string = core.getInput('cache-path', {required: false});
+    const noShare: boolean = core.getBooleanInput('no-share', {
+      required: false,
+    });
 
     core.setSecret(openaiApiKey);
     core.setSecret(githubToken);
@@ -67,7 +70,7 @@ export async function run(): Promise<void> {
         ...promptFiles,
         '-o',
         outputFile,
-        '--share',
+        noShare ? '' : '--share',
       ];
       const env = {
         ...process.env,
@@ -85,8 +88,10 @@ export async function run(): Promise<void> {
 | Success | Failure |
 |---------|---------|
 | ${output.results.stats.successes}      | ${output.results.stats.failures}       |
-
-**» [View eval results](${output.shareableUrl}) «**`;
+`;
+      if (!noShare) {
+        body.concat(`\n**» [View eval results](${output.shareableUrl}) «**`);
+      }
       await octokit.rest.issues.createComment({
         ...github.context.repo,
         issue_number: pullRequest.number,
