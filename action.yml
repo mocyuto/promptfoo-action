@@ -22,6 +22,7 @@ inputs:
   no-share:
     description: 'Do not share the prompt results'
     required: false
+    default: "false"
 branding:
   icon: 'box'
   color: 'yellow'
