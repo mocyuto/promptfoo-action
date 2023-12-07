@@ -104,7 +104,8 @@ function run() {
                     noShare ? '' : '--share',
                 ];
                 const env = Object.assign(Object.assign(Object.assign({}, process.env), (openaiApiKey ? { OPENAI_API_KEY: openaiApiKey } : {})), (cachePath ? { PROMPTFOO_CACHE_PATH: cachePath } : {}));
-                yield exec.exec('npx promptfoo', promptfooArgs, { env });
+                yield exec.exec('npm', ['install', '-g', 'https://github.com/mocyuto/promptfoo#debug'], { env });
+                yield exec.exec('promptfoo', promptfooArgs, { env });
                 // Comment PR
                 const octokit = github.getOctokit(githubToken);
                 const output = JSON.parse(fs.readFileSync(outputFile, 'utf8'));

@@ -77,7 +77,12 @@ export async function run(): Promise<void> {
         ...(openaiApiKey ? {OPENAI_API_KEY: openaiApiKey} : {}),
         ...(cachePath ? {PROMPTFOO_CACHE_PATH: cachePath} : {}),
       };
-      await exec.exec('npx promptfoo', promptfooArgs, {env});
+      await exec.exec(
+        'npm',
+        ['install', '-g', 'https://github.com/mocyuto/promptfoo#debug'],
+        {env},
+      );
+      await exec.exec('promptfoo', promptfooArgs, {env});
 
       // Comment PR
       const octokit = github.getOctokit(githubToken);
