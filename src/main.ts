@@ -70,7 +70,6 @@ export async function run(): Promise<void> {
         ...promptFiles,
         '-o',
         outputFile,
-        '--share',
       ];
       const env = {
         ...process.env,
