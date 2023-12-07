@@ -62,6 +62,9 @@ function run() {
                 required: true,
             });
             const cachePath = core.getInput('cache-path', { required: false });
+            const noShare = core.getBooleanInput('no-share', {
+                required: false,
+            });
             core.setSecret(openaiApiKey);
             core.setSecret(githubToken);
             const pullRequest = github.context.payload.pull_request;
@@ -98,7 +101,7 @@ function run() {
                     ...promptFiles,
                     '-o',
                     outputFile,
-                    '--share',
+                    noShare ? '' : '--share',
                 ];
                 const env = Object.assign(Object.assign(Object.assign({}, process.env), (openaiApiKey ? { OPENAI_API_KEY: openaiApiKey } : {})), (cachePath ? { PROMPTFOO_CACHE_PATH: cachePath } : {}));
                 yield exec.exec('npx promptfoo', promptfooArgs, { env });
